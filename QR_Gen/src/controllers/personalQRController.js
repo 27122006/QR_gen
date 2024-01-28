@@ -87,8 +87,9 @@ const editPersonalQR = async (req, res) => {
         // Save the updated data to the MongoDB database
         await personalQRData.save();
 
-        // Redirect to the profile page with the updated data
-        res.redirect(`/personalQR/profile/${personalQRData._id}`);
+        // send the updated data back to the client
+        res.json(personalQRData);
+        
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -129,15 +130,11 @@ const showProfile = async (req, res) => {
         }
 
         // Generate the QR code data
-        const data = `name: ${personalQRData.name}
-        email: ${personalQRData.email}
-        phone: ${personalQRData.phone}
-        address: ${personalQRData.address}
-        website: ${personalQRData.website}
-        company: ${personalQRData.company}
-        position: ${personalQRData.position}`;
+        const data = personalQRData;
 
-        res.render('profile', { name: personalQRData.name, email: personalQRData.email, phone: personalQRData.phone, address: personalQRData.address, website: personalQRData.website, company: personalQRData.company, position: personalQRData.position });
+        //send the profile data back to the client
+        res.json(data);
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

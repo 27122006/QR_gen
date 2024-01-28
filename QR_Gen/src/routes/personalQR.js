@@ -7,6 +7,6 @@ router.get('/generate', personalQRController.showPersonalQRGeneration);
 router.post('/generate', personalQRController.generatePersonalQR);
 router.get('/scan/:id', personalQRController.scanPersonalQR);
 router.get('/profile/:id', personalQRController.showProfile);
-router.get('/edit/:id', personalQRController.editPersonalQR);
+router.post('/edit/:id', personalQRController.editPersonalQR);
 
 module.exports = router;

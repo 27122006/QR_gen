@@ -8,19 +8,13 @@ import styles from '../styles.module.css';
 
 export default function UserProfile({params}) {
     const router = useRouter();
-    const [data, setData] = useState({
-      name: '',
-      email: '',
-      phone: '',
-      website: '',
-      company: '',
-      position: '',
-    });
+   
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
     const [website, setWebsite] = useState('');
     const [company, setCompany] = useState('');
     const [position, setPosition] = useState('');
@@ -32,12 +26,12 @@ export default function UserProfile({params}) {
       const fetchData = async () => {
         
         try {
-          const response = await axios.get(`http://localhost:5000/profile/edit/${params.id}`);
-          setData(response.data);
+          const response = await axios.get(`http://localhost:5000/personalQR/profile/${params.id}`);
           setLoading(false);
           setName(response.data.name);
           setEmail(response.data.email);
           setPhone(response.data.phone);
+          setAddress(response.data.address);
           setWebsite(response.data.website);
           setCompany(response.data.company);
           setPosition(response.data.position);
@@ -58,11 +52,12 @@ export default function UserProfile({params}) {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post(`http://localhost:5000/profile/edit/${params.id}`, {
+        const response = await axios.post(`http://localhost:5000/personalQR/edit/${params.id}`, {
           name,
           email,
           phone,
           website,
+            address,
           company,
           position,
         });
@@ -138,7 +133,7 @@ export default function UserProfile({params}) {
                     type="text"
                     className={styles.input}
                     id="Address"
-                    value={position}
+                    value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     required
                 />
@@ -163,15 +158,15 @@ export default function UserProfile({params}) {
 
             <div className={styles.input_date}>
                 <input
-                    type="date"
+                    type="text"
                     className={styles.input}
                     id="Position"
                     value={position}
                     onChange={(e) => setPosition(e.target.value)}
                     required
                 />
-                <label htmlFor="Position" className={styles.user_date}>
-                    Date of birth
+                <label htmlFor="Position" className={styles.user_label}>
+                    Position
                 </label>
             </div>
 

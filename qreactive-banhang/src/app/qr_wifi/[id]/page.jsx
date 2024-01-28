@@ -1,8 +1,7 @@
 // Import necessary dependencies
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function WifiQREdit({ params }) {
     const [ssid, setSsid] = useState('');
@@ -10,7 +9,6 @@ export default function WifiQREdit({ params }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const router = useRouter();
-    const { data, status } = useSession();
 
     useEffect(() => {
         const fetchData = async () => {
